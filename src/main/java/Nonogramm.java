@@ -23,8 +23,17 @@ public class Nonogramm {
     }
 
     // Setter
-    public void setPixel(int row, int col, char pixel){
-        picture[row][col] = pixel;
+    public void setPixel(int row, int col, char pixel) throws IllegalArgumentException, ArrayIndexOutOfBoundsException
+    {
+        if(pixel != '?' && pixel != '0' && pixel != '1'){
+            throw new IllegalArgumentException("pixel must be '?','0' or '1'.");
+        }else if(row >= this.rows || row < 0){
+            throw new ArrayIndexOutOfBoundsException("row must be within 0,...,rows-1.");
+        }else if(col >= this.cols || col < 0){
+            throw new ArrayIndexOutOfBoundsException("col must be within 0,...,cols-1.");
+        }else {
+            picture[row][col] = pixel;
+        }
     }
 
     public void printPicture(){

@@ -15,7 +15,7 @@ public class Main {
 
         Nonogramm N = new Nonogramm(rowSequences, colSequences);
         N.printPicture();
-        N.setPixel(1,1,'1');
+        N.setPixel(0,0,'1');
         N.printPicture();
     }
 }
