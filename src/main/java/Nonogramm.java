@@ -1,49 +1,41 @@
 import java.util.*;
 
 public class Nonogramm {
-    private final int rows = 10;
-    private final int cols = 10;
+    private int rows;
+    private int cols;
     private ArrayList<ArrayList<Integer>> rowSequences;
     private ArrayList<ArrayList<Integer>> colSequences;
-    private char[][] picture;
+    private char[][] picture; // '?' = empty pixel, '0' = crossed pixel, '1' = colored pixel
 
+    // Constructor
     public Nonogramm(ArrayList<ArrayList<Integer>> rowSequences,
-                     ArrayList<ArrayList<Integer>> colSequences,
-                     char[][] picture) {
+                     ArrayList<ArrayList<Integer>> colSequences) {
+        this.rows = rowSequences.size();
+        this.cols = colSequences.size();
         this.rowSequences = rowSequences;
         this.colSequences = colSequences;
-        this.picture = picture;
+        this.picture = new char[this.rows][this.cols];
+        for(int i = 0; i<rows; i++){
+            for(int j = 0; j<cols; j++){
+                this.picture[i][j] = '?';
+            }
+        };
     }
 
-    public int getRows() {
-        return rows;
+    // Setter
+    public void setPixel(int row, int col, char pixel){
+        picture[row][col] = pixel;
     }
 
-    public int getCols() {
-        return cols;
+    public void printPicture(){
+        for(int i = 0; i<rows; i++){
+            for(int j = 0; j<cols; j++){
+                System.out.print(picture[i][j]);
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
-    public ArrayList<ArrayList<Integer>> getRowSequences() {
-        return rowSequences;
-    }
 
-    public void setRowSequences(ArrayList<ArrayList<Integer>> rowSequences) {
-        this.rowSequences = rowSequences;
-    }
-
-    public ArrayList<ArrayList<Integer>> getColSequences() {
-        return colSequences;
-    }
-
-    public void setColSequences(ArrayList<ArrayList<Integer>> colSequences) {
-        this.colSequences = colSequences;
-    }
-
-    public char[][] getPicture() {
-        return picture;
-    }
-
-    public void setPicture(char[][] picture) {
-        this.picture = picture;
-    }
 }
