@@ -16,6 +16,12 @@ public class Main {
         Nonogramm N = new Nonogramm(rowSequences, colSequences);
         N.printPicture();
         N.setPixel(0,0,'1');
+        N.setPixel(2,0,'0');
         N.printPicture();
+
+        System.out.println(N.getSpecificRowSequence(1));
+        System.out.println(N.getSpecificColSequence(0));
+        System.out.println(Arrays.toString(N.getRow(2)));
+        System.out.println(Arrays.toString(N.getCol(0)));
     }
 }

@@ -9,7 +9,8 @@ public class Nonogramm {
 
     // Constructor
     public Nonogramm(ArrayList<ArrayList<Integer>> rowSequences,
-                     ArrayList<ArrayList<Integer>> colSequences) {
+                     ArrayList<ArrayList<Integer>> colSequences)
+    {
         this.rows = rowSequences.size();
         this.cols = colSequences.size();
         this.rowSequences = rowSequences;
@@ -20,6 +21,47 @@ public class Nonogramm {
                 this.picture[i][j] = '?';
             }
         };
+    }
+
+    // Getter
+    public ArrayList<Integer> getSpecificRowSequence(int row) throws ArrayIndexOutOfBoundsException
+    {
+        if(row >= this.rows || row < 0){
+            throw new ArrayIndexOutOfBoundsException("row must be within 0,...,rows-1.");
+        }else{
+            return this.rowSequences.get(row);
+        }
+    }
+
+    public ArrayList<Integer> getSpecificColSequence(int col) throws ArrayIndexOutOfBoundsException
+    {
+        if(col >= this.cols || col < 0){
+            throw new ArrayIndexOutOfBoundsException("col must be within 0,...,cols-1.");
+        }else{
+            return this.rowSequences.get(col);
+        }
+    }
+
+    public char[] getRow(int row) throws ArrayIndexOutOfBoundsException
+    {
+        if(row >= this.rows || row < 0){
+            throw new ArrayIndexOutOfBoundsException("row must be within 0,...,rows-1.");
+        }else{
+            return this.picture[row];
+        }
+    }
+
+    public char[] getCol(int col) throws ArrayIndexOutOfBoundsException
+    {
+        if(col >= this.cols || col < 0){
+            throw new ArrayIndexOutOfBoundsException("col must be within 0,...,cols-1.");
+        }else{
+            char[] pictureCol = new char[this.rows];
+            for(int i = 0; i<this.rows; i++){
+                pictureCol[i] = this.picture[i][col];
+            }
+            return pictureCol;
+        }
     }
 
     // Setter
@@ -45,6 +87,5 @@ public class Nonogramm {
         }
         System.out.println();
     }
-
 
 }
