@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -109,16 +111,16 @@ public class NonogrammTest {
         char[] expectedCol3 = {'?','?','1','0','?'};
         char[] expectedCol4 = {'?','1','?','?','1'};
 
-        assertEquals(expectedRow0, N.getRow(0));
-        assertEquals(expectedRow1, N.getRow(1));
-        assertEquals(expectedRow2, N.getRow(2));
-        assertEquals(expectedRow3, N.getRow(3));
-        assertEquals(expectedRow4, N.getRow(4));
+        assertArrayEquals(expectedRow0, N.getRow(0));
+        assertArrayEquals(expectedRow1, N.getRow(1));
+        assertArrayEquals(expectedRow2, N.getRow(2));
+        assertArrayEquals(expectedRow3, N.getRow(3));
+        assertArrayEquals(expectedRow4, N.getRow(4));
 
-        assertEquals(expectedCol0, N.getCol(0));
-        assertEquals(expectedCol1, N.getCol(1));
-        assertEquals(expectedCol2, N.getCol(2));
-        assertEquals(expectedCol3, N.getCol(3));
-        assertEquals(expectedCol4, N.getCol(4));
+        assertArrayEquals(expectedCol0, N.getCol(0));
+        assertArrayEquals(expectedCol1, N.getCol(1));
+        assertArrayEquals(expectedCol2, N.getCol(2));
+        assertArrayEquals(expectedCol3, N.getCol(3));
+        assertArrayEquals(expectedCol4, N.getCol(4));
     }
 }
