@@ -1,0 +1,124 @@
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class NonogrammTest {
+    @BeforeEach
+    void setup(){
+
+    }
+
+    @Test
+    void test1(){
+        int rows = 5;
+        int cols = 5;
+
+        ArrayList<ArrayList<Integer>> rowSequences = new ArrayList<ArrayList<Integer>>(rows);
+        ArrayList<Integer> row0 = new ArrayList<Integer>(List.of(1,1,1));
+        ArrayList<Integer> row1 = new ArrayList<Integer>(List.of(2,2));
+        ArrayList<Integer> row2 = new ArrayList<Integer>(List.of(1,1));
+        ArrayList<Integer> row3 = new ArrayList<Integer>(List.of(4));
+        ArrayList<Integer> row4 = new ArrayList<Integer>(List.of(2));
+        rowSequences.add(row0);
+        rowSequences.add(row1);
+        rowSequences.add(row2);
+        rowSequences.add(row3);
+        rowSequences.add(row4);
+
+        ArrayList<ArrayList<Integer>> colSequences = new ArrayList<ArrayList<Integer>>(cols);
+        ArrayList<Integer> col0 = new ArrayList<Integer>(List.of(3));
+        ArrayList<Integer> col1 = new ArrayList<Integer>(List.of(1,1));
+        ArrayList<Integer> col2 = new ArrayList<Integer>(List.of(1,1));
+        ArrayList<Integer> col3 = new ArrayList<Integer>(List.of(1,2));
+        ArrayList<Integer> col4 = new ArrayList<Integer>(List.of(5));
+        colSequences.add(col0);
+        colSequences.add(col1);
+        colSequences.add(col2);
+        colSequences.add(col3);
+        colSequences.add(col4);
+
+        Nonogramm N = new Nonogramm(rowSequences, colSequences);
+
+        char[][] picture = {{'1','0','1','0','1'},
+                            {'1','1','0','1','1'},
+                            {'1','0','0','0','1'},
+                            {'0','1','1','1','1'},
+                            {'0','0','0','1','1'}};
+        N.setPicture(picture);
+        for(int i = 0; i<rows; i++){
+            assertTrue(N.isRowComplete(i));
+        }
+        System.out.println();
+        for(int j = 0; j<cols; j++){
+            assertTrue(N.isColComplete(j));
+        }
+    }
+
+    @Test
+    void test2(){
+        int rows = 5;
+        int cols = 5;
+
+        ArrayList<ArrayList<Integer>> rowSequences = new ArrayList<ArrayList<Integer>>(rows);
+        ArrayList<Integer> row0 = new ArrayList<Integer>(List.of(1,1,1));
+        ArrayList<Integer> row1 = new ArrayList<Integer>(List.of(2,2));
+        ArrayList<Integer> row2 = new ArrayList<Integer>(List.of(1,1));
+        ArrayList<Integer> row3 = new ArrayList<Integer>(List.of(4));
+        ArrayList<Integer> row4 = new ArrayList<Integer>(List.of(2));
+        rowSequences.add(row0);
+        rowSequences.add(row1);
+        rowSequences.add(row2);
+        rowSequences.add(row3);
+        rowSequences.add(row4);
+
+        ArrayList<ArrayList<Integer>> colSequences = new ArrayList<ArrayList<Integer>>(cols);
+        ArrayList<Integer> col0 = new ArrayList<Integer>(List.of(3));
+        ArrayList<Integer> col1 = new ArrayList<Integer>(List.of(1,1));
+        ArrayList<Integer> col2 = new ArrayList<Integer>(List.of(1,1));
+        ArrayList<Integer> col3 = new ArrayList<Integer>(List.of(1,2));
+        ArrayList<Integer> col4 = new ArrayList<Integer>(List.of(5));
+        colSequences.add(col0);
+        colSequences.add(col1);
+        colSequences.add(col2);
+        colSequences.add(col3);
+        colSequences.add(col4);
+
+        Nonogramm N = new Nonogramm(rowSequences, colSequences);
+        N.setPixel(0,0,'1');
+        N.setPixel(1,1,'0');
+        N.setPixel(1,4,'1');
+        N.setPixel(1,0,'0');
+        N.setPixel(2,3,'1');
+        N.setPixel(3,3,'0');
+        N.setPixel(4,4,'1');
+
+        char[] expectedRow0 = {'1','?','?','?','?'};
+        char[] expectedRow1 = {'0','0','?','?','1'};
+        char[] expectedRow2 = {'?','?','?','1','?'};
+        char[] expectedRow3 = {'?','?','?','0','?'};
+        char[] expectedRow4 = {'?','?','?','?','1'};
+
+        char[] expectedCol0 = {'1','0','?','?','?'};
+        char[] expectedCol1 = {'?','0','?','?','?'};
+        char[] expectedCol2 = {'?','?','?','?','?'};
+        char[] expectedCol3 = {'?','?','1','0','?'};
+        char[] expectedCol4 = {'?','1','?','?','1'};
+
+        assertEquals(expectedRow0, N.getRow(0));
+        assertEquals(expectedRow1, N.getRow(1));
+        assertEquals(expectedRow2, N.getRow(2));
+        assertEquals(expectedRow3, N.getRow(3));
+        assertEquals(expectedRow4, N.getRow(4));
+
+        assertEquals(expectedCol0, N.getCol(0));
+        assertEquals(expectedCol1, N.getCol(1));
+        assertEquals(expectedCol2, N.getCol(2));
+        assertEquals(expectedCol3, N.getCol(3));
+        assertEquals(expectedCol4, N.getCol(4));
+    }
+}
