@@ -38,7 +38,7 @@ public class Nonogramm {
         if(col >= this.cols || col < 0){
             throw new ArrayIndexOutOfBoundsException("col must be within 0,...,cols-1.");
         }else{
-            return this.rowSequences.get(col);
+            return this.colSequences.get(col);
         }
     }
 
@@ -78,6 +78,10 @@ public class Nonogramm {
         }
     }
 
+    public void setPicture(char[][] picture) {
+        this.picture = picture;
+    }
+
     public void printPicture(){
         for(int i = 0; i<rows; i++){
             for(int j = 0; j<cols; j++){
@@ -88,4 +92,58 @@ public class Nonogramm {
         System.out.println();
     }
 
+    public boolean isRowComplete(int row){
+        char[] pictureRow = this.getRow(row);
+        for(int i = 0; i < this.cols; i++){
+            if(pictureRow[i] == '?') return false;
+        }
+        ArrayList<Integer> testRowSequence = new ArrayList<Integer>(List.of(0));
+        int pictureRowIndex = 0;
+        while(pictureRowIndex < this.cols){
+            if(pictureRow[pictureRowIndex] == '1'){
+                testRowSequence.set(testRowSequence.size() - 1, testRowSequence.get(testRowSequence.size() - 1) + 1);
+            }else{
+                while(pictureRowIndex < this.cols && pictureRow[pictureRowIndex] == '0'){
+                    pictureRowIndex++;
+                }
+                if(pictureRowIndex < this.cols){
+                    if(testRowSequence.getLast() != 0){
+                        testRowSequence.add(1);
+                    }else{
+                        testRowSequence.set(testRowSequence.size() - 1, testRowSequence.get(testRowSequence.size() - 1) + 1);
+                    }
+                }
+            }
+            pictureRowIndex++;
+        }
+        return testRowSequence.equals(this.getSpecificRowSequence(row));
+    }
+
+    public boolean isColComplete(int col)
+    {
+        char[] pictureCol = this.getCol(col);
+        for(int i = 0; i < this.rows; i++){
+            if(pictureCol[i] == '?') return false;
+        }
+        ArrayList<Integer> testColSequence = new ArrayList<Integer>(List.of(0));
+        int pictureColIndex = 0;
+        while(pictureColIndex < this.rows){
+            if(pictureCol[pictureColIndex] == '1'){
+                testColSequence.set(testColSequence.size() - 1, testColSequence.get(testColSequence.size() - 1) + 1);
+            }else{
+                while(pictureColIndex < this.rows && pictureCol[pictureColIndex] == '0'){
+                    pictureColIndex++;
+                }
+                if(pictureColIndex < this.rows){
+                    if(testColSequence.getLast() != 0){
+                        testColSequence.add(1);
+                    }else{
+                        testColSequence.set(testColSequence.size() - 1, testColSequence.get(testColSequence.size() - 1) + 1);
+                    }
+                }
+            }
+            pictureColIndex++;
+        }
+        return testColSequence.equals(this.getSpecificColSequence(col));
+    }
 }
