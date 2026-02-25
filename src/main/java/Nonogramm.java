@@ -92,58 +92,39 @@ public class Nonogramm {
         System.out.println();
     }
 
-    public boolean isRowComplete(int row){
-        char[] pictureRow = this.getRow(row);
-        for(int i = 0; i < this.cols; i++){
-            if(pictureRow[i] == '?') return false;
-        }
-        ArrayList<Integer> testRowSequence = new ArrayList<Integer>(List.of(0));
-        int pictureRowIndex = 0;
-        while(pictureRowIndex < this.cols){
-            if(pictureRow[pictureRowIndex] == '1'){
-                testRowSequence.set(testRowSequence.size() - 1, testRowSequence.get(testRowSequence.size() - 1) + 1);
+
+    public static boolean pictureStripeAdheresSequence(char[] stripe, ArrayList<Integer> sequence){
+        for (char c : stripe) if (c == '?') return false;
+        ArrayList<Integer> testSequence = new ArrayList<Integer>(List.of(0));
+        int stripeIndex = 0;
+        while(stripeIndex < stripe.length){
+            if(stripe[stripeIndex] == '1'){
+                testSequence.set(testSequence.size() - 1, testSequence.get(testSequence.size() - 1) + 1);
             }else{
-                while(pictureRowIndex < this.cols && pictureRow[pictureRowIndex] == '0'){
-                    pictureRowIndex++;
+                while(stripeIndex < stripe.length && stripe[stripeIndex] == '0'){
+                    stripeIndex++;
                 }
-                if(pictureRowIndex < this.cols){
-                    if(testRowSequence.getLast() != 0){
-                        testRowSequence.add(1);
+                if(stripeIndex < stripe.length){
+                    if(testSequence.getLast() != 0){
+                        testSequence.add(1);
                     }else{
-                        testRowSequence.set(testRowSequence.size() - 1, testRowSequence.get(testRowSequence.size() - 1) + 1);
+                        testSequence.set(testSequence.size() - 1, testSequence.get(testSequence.size() - 1) + 1);
                     }
                 }
             }
-            pictureRowIndex++;
+            stripeIndex++;
         }
-        return testRowSequence.equals(this.getSpecificRowSequence(row));
+        return testSequence.equals(sequence);
     }
 
-    public boolean isColComplete(int col)
-    {
+
+    public boolean isRowComplete(int row){
+        char[] pictureRow = this.getRow(row);
+        return pictureStripeAdheresSequence(pictureRow, this.getSpecificRowSequence(row));
+    }
+
+    public boolean isColComplete(int col){
         char[] pictureCol = this.getCol(col);
-        for(int i = 0; i < this.rows; i++){
-            if(pictureCol[i] == '?') return false;
-        }
-        ArrayList<Integer> testColSequence = new ArrayList<Integer>(List.of(0));
-        int pictureColIndex = 0;
-        while(pictureColIndex < this.rows){
-            if(pictureCol[pictureColIndex] == '1'){
-                testColSequence.set(testColSequence.size() - 1, testColSequence.get(testColSequence.size() - 1) + 1);
-            }else{
-                while(pictureColIndex < this.rows && pictureCol[pictureColIndex] == '0'){
-                    pictureColIndex++;
-                }
-                if(pictureColIndex < this.rows){
-                    if(testColSequence.getLast() != 0){
-                        testColSequence.add(1);
-                    }else{
-                        testColSequence.set(testColSequence.size() - 1, testColSequence.get(testColSequence.size() - 1) + 1);
-                    }
-                }
-            }
-            pictureColIndex++;
-        }
-        return testColSequence.equals(this.getSpecificColSequence(col));
+        return pictureStripeAdheresSequence(pictureCol, this.getSpecificColSequence(col));
     }
 }
