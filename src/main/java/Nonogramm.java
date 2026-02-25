@@ -127,4 +127,14 @@ public class Nonogramm {
         char[] pictureCol = this.getCol(col);
         return pictureStripeAdheresSequence(pictureCol, this.getSpecificColSequence(col));
     }
+
+    public boolean isComplete(){
+        for(int row = 0; row < this.cols; row++){
+            if(!isRowComplete(row)) return false;
+        }
+        for(int col = 0; col < this.rows; col++){
+            if(!isColComplete(col)) return false;
+        }
+        return true;
+    }
 }
