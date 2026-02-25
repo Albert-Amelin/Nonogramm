@@ -191,6 +191,46 @@ public class Nonogramm {
     }
 
     /**
+     *
+     * Checks whether a stripe (row or column) could be completed to match a given sequence.
+     *
+     * <p>The stripe can contain unknown cells ('?').</p>
+     *
+     * @param stripe row or column to complete
+     * @param sequence expected segment sequence
+     * @return null, if no solution exists, else a possible solution
+     */
+    public static char[] stripeSolvable(char[] stripe, ArrayList<Integer> sequence){
+        boolean isFull = true;
+        for (char c : stripe) if (c == '?'){
+            isFull = false;
+            break;
+        }
+        if(isFull){
+            if(pictureStripeAdheresSequence(stripe, sequence)){
+                return stripe.clone();
+            }
+            else return null;
+        }else{
+            for(int i = 0; i < stripe.length; i++){
+                if(stripe[i] == '?'){
+                    stripe[i] = '0';
+                    char[] possibleSolution0 = stripeSolvable(stripe.clone(), sequence);
+                    stripe[i] = '1';
+                    char[] possibleSolution1 = stripeSolvable(stripe.clone(), sequence);
+                    if(possibleSolution0 != null) return possibleSolution0;
+                    else if(possibleSolution1 != null) return possibleSolution1;
+                    else{
+                        stripe[i] = '?';
+                        return null;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * Checks whether a row is completely and correctly filled.
      *
      * @param row row index

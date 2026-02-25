@@ -62,6 +62,35 @@ public class NonogrammTest {
     }
 
     @Test
+    void testRowAndColSolvable(){
+        char[] stripe0 = {'?','?','?','?','?'};
+        char[] stripe1 = {'?','?','1','1','?'};
+        char[] stripe2 = {'1','0','1','1','0'};
+        char[] stripe3 = {'1','?','?','?','?'};
+        char[] stripe4 = {'1','1','1','0','1'};
+        char[] stripe5 = {'1','1','0','0','0'};
+        char[] stripe6 = {'1','1','1','1','1'};
+        char[] stripe7 = {'1','0','1','1','?'};
+        char[] stripe8 = {'1','0','?','1','0'};
+        char[] stripe9 = {'1','0','1','?','?'};
+
+        ArrayList<Integer> seq0 = new ArrayList<Integer>(List.of(3,1));
+        ArrayList<Integer> seq1 = new ArrayList<Integer>(List.of(5));
+        ArrayList<Integer> seq2 = new ArrayList<Integer>(List.of(2));
+        ArrayList<Integer> seq3 = new ArrayList<Integer>(List.of(1,2));
+
+        assertArrayEquals(stripe2, Nonogramm.stripeSolvable(stripe2, seq3));
+        assertArrayEquals(stripe2, Nonogramm.stripeSolvable(stripe7, seq3));
+        assertArrayEquals(stripe2, Nonogramm.stripeSolvable(stripe8, seq3));
+        assertArrayEquals(stripe2, Nonogramm.stripeSolvable(stripe9, seq3));
+        assertArrayEquals(stripe4, Nonogramm.stripeSolvable(stripe0, seq0));
+        assertArrayEquals(null, Nonogramm.stripeSolvable(stripe1, seq0));
+        assertArrayEquals(stripe6, Nonogramm.stripeSolvable(stripe3, seq1));
+        assertArrayEquals(stripe5, Nonogramm.stripeSolvable(stripe3, seq2));
+        assertArrayEquals(null, Nonogramm.stripeSolvable(stripe2, seq1));
+    }
+
+    @Test
     void testNonogrammComplete(){
         int rows = 5;
         int cols = 5;
