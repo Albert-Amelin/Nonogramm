@@ -53,7 +53,7 @@ public class NonogrammController {
             }
         }
     }
-0
+
     private void handleCellClick(int row, int col) {
         char current = puzzle.getRow(row)[col];
         if (current == '?') {
