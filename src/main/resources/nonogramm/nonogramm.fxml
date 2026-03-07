@@ -6,11 +6,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<VBox xmlns:fx="http://javafx.com/fxml"
             fx:controller="nonogramm.NonogrammController"
-            prefHeight="400.0" prefWidth="600.0">
+      spacing="10"
+      style="-fx-padding: 20;">
 
-    <Label text="Willkommen zum Nonogramm!"/>
-    <Button text="Klick mich!" onAction="#handleButtonClick"/>
+    <Label text="Nonogramm"/>
+
+    <HBox spacing="10">
+        <GridPane fx:id="nonogramGrid" gridLinesVisible="true"/>
+    </HBox>
+
+    <Button text="Check" onAction="#handleCheck"/>
 </VBox>
