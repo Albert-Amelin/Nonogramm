@@ -47,6 +47,102 @@ public class Nonogramm {
     }
 
     /**
+     * Constructs a Nonogram puzzle from a compact encoded string containing
+     * both row and column sequences.
+     *
+     * <p>The encoding format is structured as follows:</p>
+     *
+     * <pre>
+     * row1num1,row1num2,...,;row2num1,row2num2,...,;...,;/col1num1,col1num2,...,;col2num1,col2num2,...,;...,;/
+     * </pre>
+     *
+     * <ul>
+     *   <li>Numbers inside a sequence are terminated by commas <code>,</code></li>
+     *   <li>Sequences are terminated by semicolons <code>;</code></li>
+     *   <li>The row block and column block are terminated by a slash <code>/</code></li>
+     *   <li>The column block also terminates with a slash <code>/</code></li>
+     * </ul>
+     *
+     * <p>Example:</p>
+     * <pre>
+     * "1,1,1,;2,2,;1,1,;4,;2,;/3,;1,1,;1,1,;1,2,;5,;/"
+     * </pre>
+     *
+     * <p>This constructor parses the encoded string, creates the corresponding
+     * row and column sequences, and initializes an empty puzzle grid where all
+     * pixels are set to <code>'?'</code>.</p>
+     *
+     * @param rowAndColCode encoded representation of row and column sequences
+     * @throws NumberFormatException if a sequence value cannot be parsed as an integer
+     * @throws StringIndexOutOfBoundsException if the encoding format is malformed
+     */
+    public Nonogramm(String rowAndColCode)
+    {
+        ArrayList<ArrayList<Integer>> rowSequences = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> colSequences = new ArrayList<>();
+        int charIndex = 0;
+        while (rowAndColCode.charAt(charIndex) != '/'){
+            ArrayList<Integer> rowSequence = new ArrayList<>();
+            while (rowAndColCode.charAt(charIndex) != ';'){
+                StringBuilder currentNumber = new StringBuilder();
+                while (rowAndColCode.charAt(charIndex) != ','){
+                    currentNumber.append(rowAndColCode.charAt(charIndex));
+                    charIndex++;
+                }
+                rowSequence.add(Integer.parseInt(currentNumber.toString()));
+                charIndex++;
+            }
+            rowSequences.add(rowSequence);
+            charIndex++;
+        }
+        charIndex++;
+        while (rowAndColCode.charAt(charIndex) != '/'){
+            ArrayList<Integer> colSequence = new ArrayList<>();
+            while (rowAndColCode.charAt(charIndex) != ';'){
+                StringBuilder currentNumber = new StringBuilder();
+                while (rowAndColCode.charAt(charIndex) != ','){
+                    currentNumber.append(rowAndColCode.charAt(charIndex));
+                    charIndex++;
+                }
+                colSequence.add(Integer.parseInt(currentNumber.toString()));
+                charIndex++;
+            }
+            colSequences.add(colSequence);
+            charIndex++;
+        }
+
+        this.rows = rowSequences.size();
+        this.cols = colSequences.size();
+        this.rowSequences = rowSequences;
+        this.colSequences = colSequences;
+        this.picture = new char[this.rows][this.cols];
+
+        for(int i = 0; i<rows; i++){
+            for(int j = 0; j<cols; j++){
+                this.picture[i][j] = '?';
+            }
+        }
+    }
+
+    /**
+     * Returns the number of columns in the puzzle grid.
+     *
+     * @return the column count
+     */
+    public int getCols() {
+        return cols;
+    }
+
+    /**
+     * Returns the number of rows in the puzzle grid.
+     *
+     * @return the row count
+     */
+    public int getRows() {
+        return rows;
+    }
+
+    /**
      * Returns the sequence describing a specific row.
      *
      * @param row row index
